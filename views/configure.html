@@ -1,0 +1,241 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Configure Dynamic Suite</h2>
+    <p>
+        Dynamic Suite instances are highly configurable. All configuration files are stored in the <code>config/</code>
+        directory and are in JSON format. There is a single global configuration called <code>dynamicsuite.json</code>
+        and each package should have its own configuration file in the format <code>package-id.json</code> where
+        <code>package-id</code> is the package identifier key.
+    </p>
+    <p>
+        Note: It is up to the package developer to set up any configuration files that the package may use, some may not
+        have a set file, and will run using the built in default values of the package. Consult your package developer
+        regarding package specific configuration.
+    </p>
+    <p>
+        Within the core configuration file for Dynamic Suite <code>dynamicsuite.json</code> you are able to tweak your
+        instance to suit your needs. By default, this file does not exist. If you installed your instance through the
+        guided setup script, this file should exist and contain database credentials.
+    </p>
+    <p>
+        If <code>dynamicsuite.json</code> does not exist, or is missing parameters, the default values will be used.
+        Below is a list of all of the core configuration properties, their default values, and usage:
+    </p>
+    <h2>Configuration Parameters</h2>
+    <docs-config-param param="debug_mode" type="bool" default_value="false">
+        <p>
+            If this is set to true, Dynamic Suite will log application messages to the error log file and defines the
+            state of the <code>DS_DEBUG_MODE</code> constant.
+        </p>
+        <p><i>
+            Note: This may dump sensitive data sent through queries. This parameter should only be used in development
+            or debugging the application. Consult your local laws and regulations for how to handle saving sensitive
+            data in plaintext.
+        </i></p>
+    </docs-config-param>
+    <docs-config-param param="packages" type="string[]" default_value="[]">
+        <p>
+            An array of strings of packages to load. where each string corresponds to the package ID of the package you
+            wish to load.
+        </p>
+        <p>
+            Packages are loaded and parsed in the order they appear in this array. Packages may override data provided
+            in previously loaded packages.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="charset" type="string" default_value="UTF-8">
+        Application character set for HTML documents.
+    </docs-config-param>
+    <docs-config-param param="language" type="string" default_value="en">
+        Application name for HTML documents.
+    </docs-config-param>
+    <docs-config-param param="meta_description" type="string" default_value="Dynamic Suite">
+        The default meta description to be added to the document head.
+    </docs-config-param>
+    <docs-config-param param="favicon" type="string" default_value="/dynamicsuite/public/img/favicon.svg">
+        Resource path of the favicon to be added to the document.
+    </docs-config-param>
+    <docs-config-param param="default_view" type="string" default_value="/dynamicsuite/about">
+        The default view a user is presented with when no view is defined in the URL string.
+        <p>
+            If a user attempts to browse to <code>https://example.com/</code> and the default view is set to
+            <code>/dynamicsuite/about</code>, the user will be shown the about page even though it is not defined in the
+            URL string. This is essentially an alias to convert an empty URL query to a specific Dynamic Suite view.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="authentication_view" type="string" default_value="/dynamicsuite/about">
+        <p>
+            The login view that a user is redirected to when authentication is required.
+        </p>
+        <p>
+            By default, Dynamic Suite provides permission-based security to views and APIs. Users must have a valid
+            session and permissions to access non-public resources. When an invalid session or permissions are
+            encountered, the user will be redirected to whatever this parameter is set to.
+        </p>
+        <p>
+            Dynamic Suite does NOT provide a default method of authentication, this is functionality must be provided by
+            a third-party package.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="overlay_nav_footer_text" type="string|null" default_value="Dynamic Suite">
+        <p>
+            The text to display on the footer of the overlay navigation bar.
+        </p>
+        <p>
+            If this is set to NULL, the footer will be hidden.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="overlay_nav_footer_view" type="string" default_value="/dynamicsuite/about">
+        The view the user is redirect to after clicking the footer of the overlay navigation bar.
+    </docs-config-param>
+    <docs-config-param param="overlay_actions_icon" type="string" default_value="fas fa-user">
+        <p>
+            The Font Awesome classes for the icon that toggles the overlay actions area.
+        </p>
+        <p>
+            Note: If no overlay actions are provided, the actions area toggle will not render.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="document_template" type="string" default_value="/client/templates/document.html">
+        <p>
+            Path to the document template to use, relative to the application root path. This is the root HTML document
+            used for all views.
+        </p>
+        <p>
+            Consult the default <code>/client/templates/document.html</code> to see which values are replaced in the
+            template at runtime.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="about_template" type="string" default_value="/client/templates/about.html">
+        <p>
+            Path to the template used for the about page located at the URL <code>/dynamicsuite/about</code>, relative
+            to the application root path.
+        </p>
+        <p>
+            Consult the default <code>/client/templates/about.html</code> to see which values are replaced in the
+            template at runtime.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="about_title" type="string" default_value="About Dynamic Suite">
+        The HTML title to display on the about page.
+    </docs-config-param>
+    <docs-config-param param="error_404_template" type="string" default_value="/client/templates/error_404.html">
+        <p>
+            Path to the template used for 404 error page, relative to the application root path.
+        </p>
+        <p>
+            Consult the default <code>/client/templates/error_404.html</code> to see which values are replaced in the
+            template at runtime.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="error_404_title" type="string" default_value="Page Not Found">
+        The HTML title to display on the 404 error page.
+    </docs-config-param>
+    <docs-config-param param="error_404_logging" type="bool" default_value="false">
+        <p>
+            If 404 error page hits should be logged to the log file.
+        </p>
+        <p>
+            Simply logs the hits, not information about the entity that created the hit.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="error_500_template" type="string" default_value="/client/templates/error_500.html">
+        <p>
+            Path to the template used for 500 error page, relative to the application root path.
+        </p>
+        <p>
+            Consult the default <code>/client/templates/error_500.html</code> to see which values are replaced in the
+            template at runtime.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="error_500_title" type="string" default_value="Internal Server Error">
+        The HTML title to display on the 500 error page.
+    </docs-config-param>
+    <docs-config-param param="css_fontawesome" type="string" default_value="/dynamicsuite/public/css/fontawesome.min.css">
+        <p>
+            Path to the Font Awesome CSS library.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/public</code> will be mapped to the <code>/public</code> directory.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/packages/*name*</code> will be mapped to the <code>public</code>
+            directory of the given package.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="css_dynamicsuite" type="string" default_value="/dynamicsuite/public/css/dynamicsuite.min.css">
+        <p>
+            Path to the core Dynamic Suite styling.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/public</code> will be mapped to the <code>/public</code> directory.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/packages/*name*</code> will be mapped to the <code>public</code>
+            directory of the given package.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="js_vue" type="string" default_value="/dynamicsuite/public/js/vue.min.css">
+        <p>
+            Path to the Vue library.
+        </p>
+        <p>
+            Dynamic Suite included both minified and unminified JS for Vue. The default rendered is the minified.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/public</code> will be mapped to the <code>/public</code> directory.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/packages/*name*</code> will be mapped to the <code>public</code>
+            directory of the given package.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="js_dynamicsuite" type="string" default_value="/dynamicsuite/public/js/dynamicsuite.min.css">
+        <p>
+            Path to the core Dynamic Suite JS.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/public</code> will be mapped to the <code>/public</code> directory.
+        </p>
+        <p>
+            Paths relative to <code>/dynamicsuite/packages/*name*</code> will be mapped to the <code>public</code>
+            directory of the given package.
+        </p>
+    </docs-config-param>
+    <docs-config-param param="db_dsn" type="string" default_value="mysql:unix_socket=/tmp/mysql.sock;dbname=dynamicsuite;charset=utf8mb4">
+        Database DSN for the instance.
+    </docs-config-param>
+    <docs-config-param param="db_user" type="string" default_value="(empty string)">
+        Database username for the instance.
+    </docs-config-param>
+    <docs-config-param param="db_pass" type="string" default_value="(empty string)">
+        Database password for the instance.
+    </docs-config-param>
+    <docs-config-param param="db_options" type="array" default_value="">
+        <p>
+            Database options (PDO) for the instance.
+        </p>
+        <span>The default options are as follows:</span>
+        <pre><code class="language-php">PDO::ATTR_TIMEOUT => 1,
+PDO::ATTR_PERSISTENT => true,
+PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+PDO::ATTR_EMULATE_PREPARES => false
+</code></pre>
+
+        <p><i>
+            Note: In most cases the database will be on the same server as the instance, in this case
+            <code>PDO::ATTR_TIMEOUT</code> of 1 should be fine. If your database is on a different server, this may need
+            to be set higher to account for latency.
+        </i></p>
+    </docs-config-param>
+</div>

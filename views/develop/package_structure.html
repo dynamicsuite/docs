@@ -1,0 +1,77 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Package Structure</h2>
+    <p>
+        A package is defined by its structure file which is a JSON file in the root of the package directory. The name
+        of the structure file must be the same as the package ID with the <code>.json</code> file extension.
+    </p>
+    <p>
+        <i>Note, if a parameter is not provided, the default will be used.</i>
+    </p>
+    <h2>Parameters</h2>
+    <docs-config-param param="name" type="string|null" default_value="null">
+        The name of the package.
+    </docs-config-param>
+    <docs-config-param param="author" type="string|null" default_value="Anonymous">
+        The package author.
+    </docs-config-param>
+    <docs-config-param param="version" type="string|null" default_value="0.0.0">
+        Semantic version of the package.
+    </docs-config-param>
+    <docs-config-param param="description" type="string|null" default_value="N/A">
+        A short description of the package.
+    </docs-config-param>
+    <docs-config-param param="license" type="string|null" default_value="none">
+        The license type of the package.
+    </docs-config-param>
+    <docs-config-param param="autoload" type="array" default_value="[]">
+        List of paths to include in the autoloader.
+    </docs-config-param>
+    <docs-config-param param="init" type="array" default_value="[]">
+        List of paths to scripts to execute on every DS request.
+    </docs-config-param>
+    <docs-config-param param="js" type="array" default_value="[]">
+        List of paths to JS files to include on all client views.
+    </docs-config-param>
+    <docs-config-param param="css" type="array" default_value="[]">
+        List of paths to CSS resources to include on all client views.
+    </docs-config-param>
+    <docs-config-param param="apis" type="array" default_value="[]">
+        APIs to include with the package. See:
+        <p>
+            <!--suppress HtmlUnknownTarget -->
+            See: <a href="/develop/api-structure">API Structure</a>
+        </p>
+    </docs-config-param>
+    <docs-config-param param="views" type="array" default_value="[]">
+        Views to include with the package. See:
+        <p>
+            <!--suppress HtmlUnknownTarget -->
+            See: <a href="/develop/api-structure">View Structure</a>
+        </p>
+    </docs-config-param>
+    <docs-config-param param="nav_groups" type="array" default_value="[]">
+        Navigation groups to include with the package.
+        <p>
+            <!--suppress HtmlUnknownTarget -->
+            See: <a href="/develop/nav-group-structure">Navigation Group Structure</a>
+        </p>
+    </docs-config-param>
+    <docs-config-param param="overlay_actions" type="array" default_value="[]">
+        Overlay actions to include with the package.
+        <p>
+            <!--suppress HtmlUnknownTarget -->
+            See: <a href="/develop/overlay-action-structure">Overlay Action Structure</a>
+        </p>
+    </docs-config-param>
+</div>

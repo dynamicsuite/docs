@@ -1,0 +1,51 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>What is Dynamic Suite?</h2>
+    <p>
+        Dynamic Suite is a general-purpose web application framework. It's main focus is on private login-required pages
+        with enhanced security, but it is able to template public web pages as well (Like these docs!). The framework
+        includes the tools needed to build a package-based web application with utilities to manage client views, server
+        libraries, REST API endpoints, and much more!
+    </p>
+    <p>
+        Dynamic Suite is available under the GNU General Purpose License v3. A copy of the
+        <a href="https://github.com/dynamicsuite/dynamicsuite/blob/master/LICENSE">license</a>
+        is available on the GitHub repository.
+    </p>
+    <p>
+        Issues and support are maintained through GitHub
+        <a href="https://github.com/dynamicsuite/dynamicsuite/issues">issues</a>
+        within the repository.
+    </p>
+    <h2>Built for Performance</h2>
+    <p>
+        Dynamic Suite was built to perform in high traffic production environments.
+    </p>
+    <p>
+        The following test was done on this docs page on a Amazon AWS t3a.nano EC2 instance. (2 cores, 512MB ram):
+    </p>
+    <pre><code class="plaintext">ab -n 10000 -c 100
+Concurrency Level:      100
+Time taken for tests:   5.585 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      37030000 bytes
+HTML transferred:       33660000 bytes
+Requests per second:    1790.57 [#/sec] (mean)
+Time per request:       55.848 [ms] (mean)
+Time per request:       0.558 [ms] (mean, across all concurrent requests)
+Transfer rate:          6475.10 [Kbytes/sec] received</code></pre>
+    <p>
+        With caching enabled, a standard DS request profiles at about 0.75ms as per XDebug 3.
+    </p>
+</div>

@@ -1,0 +1,86 @@
+/*
+ * This file is part of the Dynamic Suite Docs package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package DynamicSuite\Docs
+ * @author Grant Martin <commgdog@gmail.com>
+ * @copyright 2021 Dynamic Suite Team
+ */
+
+/* Include DS colors */
+@import "../../../../client/sass/dynamicsuite"
+
+/* Main content container */
+.docs-container
+  align-self: center
+  box-sizing: border-box
+  width: 100%
+  line-height: 1.5rem
+  overflow-x: auto
+
+  /* Set a max column width for the content */
+  @media (min-width: 1280px)
+    width: calc(1280px - 2rem)
+
+  /* Rules for < ipad size */
+  @media (max-width: 810px)
+    flex-grow: 1
+    margin: -1rem
+    width: calc(100% + 2rem)
+    box-shadow: none !important
+    border: none !important
+    border-radius: 0 !important
+
+  /* Strip margin from the last element */
+  & > *:last-child
+    margin-bottom: 0
+
+  /* Article headers */
+  & > h2
+    display: flex
+    align-content: center
+    margin: 0 0 1rem 0
+    padding-bottom: 0.25rem
+    border-bottom: 1px solid $color-border
+
+    &:target
+      scroll-margin-top: calc(#{$size-slim} + 1rem)
+
+  /* Article links */
+  a
+    color: $color-primary
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+
+  /* Code override */
+  .hljs
+    background: #fff
+
+  /* Code blocks */
+  code
+    padding: 0.25rem
+    border-radius: 4px
+    background: #d2d6de
+    max-width: 0
+    min-width: calc(100% - 1rem)
+
+  /* Tables */
+  &.docs-aui-component > * > table, & > table
+    width: 100%
+    text-align: left
+    margin-bottom: 1rem
+    border-collapse: collapse
+    background: $color-text-inverted
+
+    /* Table cells */
+    td, th
+      padding: 0.5rem
+      border: 1px solid $color-border
+
+    /* Table PRE tags for code values */
+    pre
+      margin: 0

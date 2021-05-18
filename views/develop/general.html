@@ -1,0 +1,322 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Dynamic Suite Developer Reference</h2>
+    <p>
+        Dynamic Suite is a package-based framework. Packages are independently developed groups of code that Dynamic
+        Suite interfaces with to complete a task. Think of Dynamic Suite as an operating system, and packages as user
+        programs.
+    </p>
+    <p>
+        Package developers have a lot of flexibility in how their package will function. A package could contain
+        server-side libraries, client resources, or even just a single image! It is up to the package developer to build
+        their package to their needs.
+    </p>
+    <p>
+        To make development of packages easier, Dynamic Suite contains a lightweight library of server and client
+        functions for common tasks. Reference to these library functions can be found in their own class files in the
+        <code>libraries/</code> directory for server libraries and <code>client/js/dynamicsuite.js</code> file for
+        client functionality.
+    </p>
+    <h2 id="package-id">Package ID <docs-link link="package-id"></docs-link></h2>
+    <p>
+        Each package has a package ID. The package ID is a string representation of your package that Dynamic Suite uses
+        to know where to find your and load package. The package ID should be the name of your package with no spaces
+        and using only lower case letters. For example: If you package is named <code>"My Package"</code>, your package
+        ID should be <code>"my-package"</code>. You should try and come up with a unique package ID, as common packages
+        (Like "login") may overlap.
+    </p>
+    <p>
+        <i>Note: The package ID <code>dynamicsuite</code> is reserved and cannot be used.</i>
+    </p>
+    <h2 id="package-structure">Package Structure <docs-link link="package-structure"></docs-link></h2>
+    <p>
+        Each package should be self-contained into a single directory. The name of the directory should be the same as
+        the package ID. The directory should be put in the <code>packages/</code> directory of the instance and set to
+        load in the global configuration file <code>config/dynamicsuite.json</code>.
+    </p>
+    <p>
+        Within your package directory, you need to create a <i>structure file</i>. A structure file is a JSON object
+        that Dynamic Suite uses to build your package and determine what it will do. The structure file should have the
+        same name as your package ID with the <code>.json</code> extension appended.
+    </p>
+    <p>
+        Within the package structure, any file paths that start with forward slash will be relative to the Dynamic Suite
+        root directory or endpoint, otherwise the path will be set relative to the current package.
+    </p>
+    <p>
+        Example 1: You have a server resource path <code>server/script.php</code> will transform to
+        <code>packages/my-package/server/script.php</code>
+    </p>
+    <p>
+        Example 2: You have a client resource <code>public/css/packagesManual.css</code> will transform to
+        <code>/dynamicsuite/packages/package-id/css/packagesManual.css</code>
+    </p>
+    <p>
+        Client resources are served through apache with a special mapping. Within your package directory, you may create
+        a directory called <code>public/</code>. This directory will be mapped to the URL schema
+        <code>/dynamicsuite/packages/*package-id*/</code>
+    </p>
+    <h2 id="autoload">Auto-Loading <docs-link link="autoload"></docs-link></h2>
+    <p>
+        Dynamic Suite includes easy functionality for auto-loading class files on the server. When defining a package
+        structure file, you may include paths to directories where the autoloader will look.
+    </p>
+    <p>
+        Lets say you define the following path to autoload:
+    </p>
+    <pre><code class="plaintext">server/lib/</code></pre>
+    <p>
+        And then you initialize a new class:
+    </p>
+    <pre><code class="language-php">new class Test();</code></pre>
+    <p>
+        The autoloader will look for a file called Test.php in the directory <code>server/lib</code>, relative to the
+        package directory where the autoloader is defined.
+    </p>
+    <p>
+        Full class names (including namespace) are also used for this folder/file structure. If you create a new
+        instance using the auto-load path above like this:
+    </p>
+    <pre><code class="language-php">new class Org\Internals\Test();</code></pre>
+    <p>
+        The autoloader will look for a file called <code>Org/Internals/Test.php</code> in the directory
+        <code>server/lib</code>, relative to the package directory where the autoloader is defined.
+    </p>
+    <h2 id="permissions">Permissions <docs-link link="permissions"></docs-link></h2>
+    <p>
+        Dynamic Suite includes permission functionality attached to the current session.
+    </p>
+    <p>
+        Permissions are saved on the session as an array of strings. When defining permissions in structure files, it
+        looks at the array of session permissions to see if the given permission (string) is found.
+    </p>
+    <p>
+        For example: If your package has a permission for adding users, the permission may look like this:
+    </p>
+    <p>
+        <code>package_add_user</code>
+    </p>
+    <p>
+        The character <code>|</code> is reserved and cannot be used in permission names or package names. When using the
+        <code>|</code> character in structure definitions, it checks for the existence of one of the permissions,
+        exploded by <code>|</code>.
+    </p>
+    <p>
+        For example: this check would evaluate TRUE if the session had either of these permissions.
+    </p>
+    <p>
+        <code>permission1|permission2</code>
+    </p>
+    <p>
+        Permissions implementations may vary based on authentication methods.
+    </p>
+    <p>
+        In you package init scripts, you can set the <code>Session::$permissions</code> for the request.
+    </p>
+    <h2 id="package-config">Package Configuration <docs-link link="package-config"></docs-link></h2>
+    <p>
+        Ideally, you develop packages to be as configurable as possible. Dynamic Suite includes a directory
+        <code>config/</code> to store configuration files for packages. Best practice is to have a JSON configuration
+        file in this directory with your package ID as the file name.
+    </p>
+    <p>
+        Example: <code>my-package.json</code>
+    </p>
+    <p>
+        It is up to the package developer to implement how the configuration loads.
+    </p>
+    <p>
+        Dynamic Suite includes a abstract configuration loader class called <code>JSONConfig</code> which you can extend
+        to standardize your configurations.
+    </p>
+    <p>
+        Refer to the file <code>libraries/DynamicSuite/JSONConfig.php</code> for more information.
+    </p>
+    <h2 id="client-structure">Client Structure <docs-link link="client-structure"></docs-link></h2>
+    <p>
+        Dynamic Suite utilizes the Vue.js framework.
+    </p>
+    <p>
+        On every client view, a new root Vue instance is created called Dynamic Suite. Any content rendered by your
+        package will go in this instance. If the current view does not have <code>hide_overlay</code> set to TRUE,
+        an overlay title bar with navigation will be rendered before package content.
+    </p>
+    <p>
+        You can modify the core Dynamic Suite Vue instance via: <code>DynamicSuite.vm</code>
+    </p>
+    <p>
+        Refer to your browsers Vue devtools to see static DynamicSuite data on the root instance.
+    </p>
+    <p>
+        Data can be classed to the client view from the server request through a special window property. This should
+        be used in favor of doing another request after page load when the data requested is static. Usage is as
+        follows:
+    </p>
+    <p>
+        Set client data on the server:
+    </p>
+    <pre><code class="language-php">Render::setClientData('prop', 123);</code></pre>
+    <p>
+        Retrieve data on the client:
+    </p>
+    <pre><code class="language-js">DynamicSuite.readCustomData('prop'); // 123</code></pre>
+    <p>
+        Client data is stored raw on the client in the window property:
+    </p>
+    <pre><code class="language-js">window.dynamicsuite.custom[prop];</code></pre>
+    <h2 id="nav-alerts">Setting Nav Alerts <docs-link link="nav-alerts"></docs-link></h2>
+    <p>
+        You can set alerts on the overlay navigation. These alerts come in 3 colors/type: success, warning, failure.
+    </p>
+    <p>
+        You can set these server-side with:
+    </p>
+    <pre><code class="language-php">Render::$client_data['overlay_nav_alert_success']['test'] = 'New';</code></pre>
+    <p>
+        You can set these client-side with:
+    </p>
+    <pre><code class="language-js">DynamicSuite.vm.setNavAlert('warning', 'test', 4);</code></pre>
+    <h2 id="nav-active">Setting Active Nav <docs-link link="nav-active"></docs-link></h2>
+    <p>
+        You can set the active nav entry on the overlay navigation bar on the client, without reloading the view. This
+        case is useful when you have an SPA that spans across multiple DS views.
+    </p>
+    <p>
+        You can set client-side with:
+    </p>
+    <pre><code class="language-js">DynamicSuite.vm.setNavActive('/about?name=test');</code></pre>
+    <h2 id="constants">Constants <docs-link link="constants"></docs-link></h2>
+    <p>
+        Within all init scripts and entry points, you have access to the following global variables and constants
+        relating to Dynamic Suite:
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Constant</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>DS_VERSION</td>
+                <td>string</td>
+                <td>The current framework version</td>
+            </tr>
+            <tr>
+                <td>DS_ROOT_DIR</td>
+                <td>string</td>
+                <td>The path to the root directory on the server</td>
+            </tr>
+            <tr>
+                <td>DS_CACHING</td>
+                <td>bool</td>
+                <td>If caching is enabled</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 id="debug-mode">Debug Mode <docs-link link="debug-mode"></docs-link></h2>
+    <p>
+        Dynamic Suite has a debug mode which package developers can use to swap their environment from a development to
+        a production environment.
+    </p>
+    <p>
+        The current debug mode can be found via the <code>DS_DEBUG_MODE</code> constant. The value of the constant can
+        be set by changing your global config parameter <code>debug_mode</code>.
+    </p>
+    <p>
+        <!--suppress HtmlUnknownTarget -->
+        You can read about <a href="/configure">configuring parameters here</a>.
+    </p>
+    <p><i>
+        Note: An environment with debug set to TRUE will log all queries which may dump sensitive information in
+        plaintext. Use with caution.
+    </i></p>
+    <h2 id="performance">Performance Considerations <docs-link link="performance"></docs-link></h2>
+    <p>
+        Dynamic Suite utilizes APCU for better performance. When APCU is enabled, the DynamicSuite class will cache much
+        of its loaded values. Things like structure files and configurations will be cached and will NOT be read from
+        disk until the cache is turned off or reset.
+    </p>
+    <p>
+        When building package structure files, omit parameters if they are the same as the default. The larger the
+        structure file, the longer the request will take to load/cache.
+    </p>
+    <h2 id="database">Database Access <docs-link link="database"></docs-link></h2>
+    <p>
+        Dynamic Suite comes with a simple database interface. Your package may add functionality to this database, best
+        practice is to manage this with the installer scripts attached to your package.
+    </p>
+    <p>
+        Best practice is to prefix your tables and views with something that can identify them as coming from your
+        package. Example: <code>mypkg_</code>
+    </p>
+    <p>
+        If your package adds tables to the database, you must create DROP functionality in your uninstall script or
+        there may be orphaned tables.
+    </p>
+    <p>
+        Refer to the <code>DynamicSuite\Database\Query</code> and <code>DynamicSuite\Database\Database</code> classes
+        for usage.
+    </p>
+    <h2 id="api-endpoints">API Endpoints <docs-link link="api-endpoints"></docs-link></h2>
+    <p>
+        You can use Dynamic Suite to create REST API endpoints. All endpoints are accessed through the following URL:
+    </p>
+    <p>
+        <code>/dynamicsuite/api/*api_id*</code>
+    </p>
+    <p>
+        The included JavaScript library has a wrapper function to make AJAX requests to this endpoint. You can use the
+        following method:
+    </p>
+    <pre><code class="language-javascript">DynamicSuite.call("api", {}, (response) => {});</code></pre>
+    <p>
+        All API calls must return a <code>Response</code> JSON object. The following is an example of this:
+    </p>
+    <pre><code class="language-json">{
+    "status": "STATUS_MESSAGE",
+    "message": "Request has finished",
+    "data": 1234
+}</code></pre>
+    <p>
+        Below is a description of the response object:
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>status</td>
+                <td>string</td>
+                <td>A response message abbreviating the response, usually all uppercase with no spaces</td>
+            </tr>
+            <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>A friendly message describing the response</td>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>mixed</td>
+                <td>Data response payload returned from the API call</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

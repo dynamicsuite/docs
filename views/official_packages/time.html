@@ -1,0 +1,55 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Time Package</h2>
+    <p>
+        A library to standardize time formats across an instance.
+    </p>
+    <p>
+        Configure via <code>config/time.json</code> with the following parameters:
+    </p>
+    <pre><code class="language-json">{
+  "default_timezone": null,
+  "timestamp_format": "m/d/Y g:i:s A",
+  "time_format": "g:i A",
+  "date_format": "m/d/Y",
+  "empty_time": "N/A",
+  "sql_date_format": "%Y/%m/%d",
+  "sql_time_format": "%h:%i %p"
+}</code></pre>
+    <p>
+        Missing parameters will be replaced with the default (shown above).
+    </p>
+    <p>
+        If the timezone is not set, it will be auto-set to UTC.
+    </p>
+    <p>
+        Timezone can be set at runtime with the <code>Time::setTimezone(string $timezone)</code>.
+    </p>
+    <p>
+        You can <a href="https://www.php.net/manual/en/function.date.php">read more about formatting</a> in the PHP
+        documentation.
+    </p>
+    <h2>Example Usage</h2>
+    <pre><code class="language-php">use DynamicSuite\Time;
+
+$date = '2020-07-08 14:30:00';
+
+echo Time::date($date); // 07/08/2020
+echo Time::time($date); // 2:30 PM
+echo Time::timestamp($date); // 07/08/2020 at 2:30 PM
+</code></pre>
+    <h2>GitHub</h2>
+    <p>
+        Package git repository can be found <a href="https://github.com/dynamicsuite/dspkg-time">on GitHub</a>.
+    </p>
+</div>

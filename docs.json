@@ -1,0 +1,310 @@
+{
+  "name": "Dynamic Suite Docs",
+  "author": "Dynamic Suite Team",
+  "version": "9.0.0",
+  "description": "Documentation for Dynamic Suite PHP framework",
+  "license": "GPLv3",
+  "css": [
+    "css/docs.min.css",
+    "css/highlight.js.min.css"
+  ],
+  "js": [
+    "js/highlight.min.js",
+    "js/docs.min.js"
+  ],
+  "nav_groups": {
+    "develop": {
+      "name": "Develop",
+      "icon": "fas fa-code",
+      "public": true
+    },
+    "official-packages": {
+      "name": "Official Packages",
+      "icon": "fas fa-cube",
+      "public": true
+    },
+    "aui": {
+      "name": "AUI Components",
+      "icon": "fas fa-th-large",
+      "public": true
+    }
+  },
+  "views": {
+    "/about": {
+      "entry": "views/about.html",
+      "title": "About Dynamic Suite",
+      "public": true,
+      "nav_icon": "fas fa-info-circle",
+      "nav_name": "About"
+    },
+    "/install": {
+      "entry": "views/install.html",
+      "title": "Install Dynamic Suite",
+      "public": true,
+      "nav_icon": "fas fa-wrench",
+      "nav_name": "Install"
+    },
+    "/configure": {
+      "entry": "views/configure.html",
+      "title": "Configure Dynamic Suite",
+      "public": true,
+      "nav_icon": "fas fa-cogs",
+      "nav_name": "Configure"
+    },
+    "/cli": {
+      "entry": "views/cli.html",
+      "title": "Command Line Interface",
+      "public": true,
+      "nav_icon": "fas fa-terminal",
+      "nav_name": "CLI"
+    },
+    "/develop/general": {
+      "entry": "views/develop/general.html",
+      "title": "General Reference",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-info-circle",
+      "nav_name": "General Reference"
+    },
+    "/develop/package-structure": {
+      "entry": "views/develop/package_structure.html",
+      "title": "Package Structure",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-file-code",
+      "nav_name": "Package Structure"
+    },
+    "/develop/api-structure": {
+      "entry": "views/develop/api_structure.html",
+      "title": "API Structure",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-server",
+      "nav_name": "API Structure"
+    },
+    "/develop/view-structure": {
+      "entry": "views/develop/view_structure.html",
+      "title": "View Structure",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-eye",
+      "nav_name": "View Structure"
+    },
+    "/develop/nav-group-structure": {
+      "entry": "views/develop/nav_group_structure.html",
+      "title": "Nav Group Structure",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-bars",
+      "nav_name": "Nav Group Structure"
+    },
+    "/develop/overlay-action-structure": {
+      "entry": "views/develop/overlay_action_structure.html",
+      "title": "Overlay Action Structure",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-mouse-pointer",
+      "nav_name": "Overlay Action Structure"
+    },
+    "/develop/storable": {
+      "entry": "views/develop/storable.html",
+      "title": "Storable Interface",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-database",
+      "nav_name": "Storable Interface"
+    },
+    "/develop/client-building": {
+      "entry": "views/develop/client_building.html",
+      "title": "Client Building",
+      "public": true,
+      "nav_group": "develop",
+      "nav_icon": "fas fa-file-code",
+      "nav_name": "Client Building"
+    },
+    "/official-packages/time": {
+      "entry": "views/official_packages/time.html",
+      "title": "Official Package - Time",
+      "public": true,
+      "nav_group": "official-packages",
+      "nav_icon": "fas fa-clock",
+      "nav_name": "Time"
+    },
+    "/official-packages/phpmailer": {
+      "entry": "views/official_packages/phpmailer.html",
+      "title": "Official Package - PHPMailer",
+      "public": true,
+      "nav_group": "official-packages",
+      "nav_icon": "fas fa-envelope",
+      "nav_name": "PHPMailer"
+    },
+    "/aui/alert": {
+      "entry": "vue://docs-aui-alert",
+      "title": "AUI Component - Alert",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Alert"
+    },
+    "/aui/badge": {
+      "entry": "vue://docs-aui-badge",
+      "title": "AUI Component - Badge",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Badge"
+    },
+    "/aui/button": {
+      "entry": "vue://docs-aui-button",
+      "title": "AUI Component - Button",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Button"
+    },
+    "/aui/button-drop": {
+      "entry": "vue://docs-aui-button-drop",
+      "title": "AUI Component - Button Drop",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Button Drop"
+    },
+    "/aui/checkbox": {
+      "entry": "vue://docs-aui-checkbox",
+      "title": "AUI Component - Checkbox",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Checkbox"
+    },
+    "/aui/crud": {
+      "entry": "vue://docs-aui-crud",
+      "title": "AUI Component - CRUD",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "CRUD"
+    },
+    "/aui/crud-list": {
+      "entry": "vue://docs-aui-crud-list",
+      "title": "AUI Component - CRUD List",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "CRUD List"
+    },
+    "/aui/input": {
+      "entry": "vue://docs-aui-input",
+      "title": "AUI Component - Input",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Input"
+    },
+    "/aui/list-group": {
+      "entry": "vue://docs-aui-list-group",
+      "title": "AUI Component - List Group",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "List Group"
+    },
+    "/aui/modal": {
+      "entry": "vue://docs-aui-modal",
+      "title": "AUI Component - Modal",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Modal"
+    },
+    "/aui/notice": {
+      "entry": "vue://docs-aui-notice",
+      "title": "AUI Component - Notice",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Notice"
+    },
+    "/aui/number": {
+      "entry": "vue://docs-aui-number",
+      "title": "AUI Component - Number",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Number"
+    },
+    "/aui/pagination": {
+      "entry": "vue://docs-aui-pagination",
+      "title": "AUI Component - Pagination",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Pagination"
+    },
+    "/aui/radio": {
+      "entry": "vue://docs-aui-radio",
+      "title": "AUI Component - Radio",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Radio"
+    },
+    "/aui/select": {
+      "entry": "vue://docs-aui-select",
+      "title": "AUI Component - Select",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Select"
+    },
+    "/aui/select-assignment": {
+      "entry": "vue://docs-aui-select-assignment",
+      "title": "AUI Component - Select Assignment",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Select Assignment"
+    },
+    "/aui/table": {
+      "entry": "vue://docs-aui-table",
+      "title": "AUI Component - Table",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Table"
+    },
+    "/aui/tabs": {
+      "entry": "vue://docs-aui-tabs",
+      "title": "AUI Component - Tabs",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Tabs"
+    },
+    "/aui/textarea": {
+      "entry": "vue://docs-aui-textarea",
+      "title": "AUI Component - Text Area",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Text Area"
+    },
+    "/aui/toggle": {
+      "entry": "vue://docs-aui-toggle",
+      "title": "AUI Component - Toggle",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "Toggle"
+    },
+    "/aui/wysiwyg": {
+      "entry": "vue://docs-aui-wysiwyg",
+      "title": "AUI Component - WYSIWYG",
+      "public": true,
+      "nav_group": "aui",
+      "nav_icon": "fas fa-th-large",
+      "nav_name": "WYSIWYG"
+    }
+  }
+}

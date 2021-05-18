@@ -1,0 +1,34 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Navigation Group Structure</h2>
+    <p>
+        A package structure file may contain logical groupings on the built-in navigation called "nav groups".
+    </p>
+    <p>
+        Nav groups are JSON objects with the following structure:
+    </p>
+    <p><i>Note, if a parameter is not provided, the default will be used.</i></p>
+    <h2>Parameters</h2>
+    <docs-config-param param="name" type="string|null" default_value="null">
+        The name of the nav group as appears on the overlay nav. If not given or NULL, the nav group ID will be used.
+    </docs-config-param>
+    <docs-config-param param="icon" type="string" default_value="fas fa-cogs">
+        The FontAwesome icon class as appears on the overlay nav.
+    </docs-config-param>
+    <docs-config-param param="public" type="bool" default_value="false">
+        If the nav group is public and does not require authentication.
+    </docs-config-param>
+    <docs-config-param param="permissions" type="array" default_value="[]">
+        An array of strings of required permissions on the session for the nav group.
+    </docs-config-param>
+</div>

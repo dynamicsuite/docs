@@ -1,0 +1,80 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Client Building</h2>
+    <p>
+        Dynamic Suite includes a build script to package and build all public clientside resources from SASS, Vue SFCs,
+        Vue Mixins, and JS.
+    </p>
+    <p>
+        While it is entirely possible to hand make all of these resources, it is not best practice. The following is the
+        best practice for setting up client resources within your package:
+    </p>
+    <p>
+        Your package has a single directory served to the client through a special URL. Dynamic Suite will map the URL
+        <code>/dynamicsuite/package/*package-id*</code> to <code>public/</code> within your package structure. Only
+        distributable content should go in this directory.
+    </p>
+    <p>
+        You package has a single directory where un-compiled clientside content should go. Best practice is to name this
+        directory <code>client/</code> and within it have the optional sub folders for their respective resources:
+    </p>
+    <ul>
+        <li><code>state/</code> - Vue States (Global scope variables)</li>
+        <li><code>mixins/</code> - Vue Mixins (Global scope variables)</li>
+        <li><code>components/</code> - Vue SFCs</li>
+        <li><code>js/</code> - JS to include, loaded after components</li>
+        <li><code>sass/</code> - SASS files to compile</li>
+    </ul>
+    <p>
+        The Dynamic Suite build script can take all content from these directories and build them for distribution via
+        the <code>public/</code> directory.
+    </p>
+    <p>
+        Using the build script requires the following:
+    </p>
+    <ul>
+        <li>node.js</li>
+        <li>npm -g sass</li>
+        <li>npm -g uglify-js</li>
+        <li>npm -g html-minifier</li>
+    </ul>
+    <p>
+        The build script has the following usage:
+    </p>
+    <pre><code class="plaintext">node build.js
+--prefix {name}
+--js_include_dir {dir}
+--js_output {path}
+--sass_include_dir {dir}
+--css_output {path}
+--component_dir {dir}
+--state_dir {dir}
+--mixin_dir {dir}</code></pre>
+    <h2>Building with JetBrains File Watcher</h2>
+    <p>
+        If you are using a JetBrains IDE, you can setup a file watcher (node) with the following (example) arguments:
+    </p>
+    <pre><code lang="plaintext">$ProjectFileDir$/client/build.js
+--prefix ds
+--js_output $ProjectFileDir$\packages\*pkg-id*\public\js\*pkg-id*.min.js
+--css_output $ProjectFileDir$\packages\*pkg-id*\public\css\*pkg-id*.min.css
+--js_include_dir $ProjectFileDir$\packages\*pkg-id*\client\js
+--sass_include_dir $ProjectFileDir$\packages\*pkg-id*\client\sass
+--component_dir $ProjectFileDir$\packages\*pkg-id*\client\components
+--state_dir $ProjectFileDir$\packages\*pkg-id*\client\state
+--mixin_dir $ProjectFileDir$\packages\*pkg-id*\client\mixins</code></pre>
+    <p>
+        Output paths to refresh:
+    </p>
+    <pre><code class="plaintext">$ProjectFileDir$\packages\*pkg-id*\public\js:$ProjectFileDir$\packages\*pkg-id*\public\css</code></pre>
+</div>

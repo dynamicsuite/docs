@@ -1,0 +1,54 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>PHPMailer Package</h2>
+    <p>
+        This is a Dynamic Suite package implementing the PHPMailer class for sending emails from Dynamic Suite.
+    </p>
+    <p>
+        The <a href="https://github.com/PHPMailer/PHPMailer">PHPMailer</a> project can be followed on GitHub.
+    </p>
+    <p>
+        Configure via <code>config/phpmailer.json</code> with the following parameters:
+    </p>
+    <pre><code class="language-json">{
+  "smtp_debug": 0,
+  "smtp_host": "mail.example.com",
+  "smtp_port": 587,
+  "smtp_username": "noreply@example.com",
+  "smtp_password": "12345",
+  "smtp_secure": "tls",
+  "default_from_addr": "noreply@example.com",
+  "default_from_name": "My Name"
+}</code></pre>
+    <p>
+        Missing parameters will be replaced with the default (shown above).
+    </p>
+    <h2>Example Usage</h2>
+    <pre><code class="language-php">use DynamicSuite\PHPMailer\PHPMailer;
+
+try {
+    $email = PHPMailer::create();
+    $email->addAddress('email@example.com', 'Example Account');
+    $email->Subject = 'Test Email';
+    $email->Body = 'This is a test!';
+    $email->send();
+    echo 'Mail sent';
+} catch (\PHPMailer\PHPMailer\Exception $exception) {
+    echo $exception->getMessage();
+}
+</code></pre>
+    <h2>GitHub</h2>
+    <p>
+        Package git repository can be found <a href="https://github.com/dynamicsuite/dspkg-phpmailer">on GitHub</a>.
+    </p>
+</div>

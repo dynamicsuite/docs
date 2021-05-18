@@ -1,0 +1,162 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Install Dynamic Suite</h2>
+    <p>
+        The following guide will help you deploy a Dynamic Suite instance.
+    </p>
+    <p>
+        Dynamic Suite was built and tested using Debian 10 and MariaDB. If you are using a non Debian 10/MariaDB
+        environment, consult the generic install documentation at the end of this page.
+    </p>
+    <p><strong>
+        If you have already installed a Dynamic Suite instance on the system and are setting up additional, you can
+        skip the Sury repository steps and go right to making directories.
+    </strong></p>
+    <h3>Install Guide</h3>
+    <p><i>Note: Run each step as a single command</i></p>
+    <p>
+        Switch to the root user:
+    </p>
+    <pre><code class="plaintext">sudo su</code></pre>
+    <p>
+        Add repository prerequisites:
+    </p>
+    <pre><code class="plaintext">apt -y install lsb-release apt-transport-https ca-certificates</code></pre>
+    <p>
+        Add repository key:
+    </p>
+    <pre><code class="plaintext">wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg</code></pre>
+    <p>
+        Add repository:
+    </p>
+    <pre><code class="plaintext">echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list</code></pre>
+    <p>
+        Install Dependencies:
+    </p>
+    <pre><code class="plaintext">apt update && apt -y install git mariadb-server apache2 php php-mysql php-apcu php8.0-opcache php-mbstring</code></pre>
+    <p>
+        Enable the Apache modules and restart:
+    </p>
+    <pre><code class="plaintext">a2enmod rewrite && a2enmod expires && a2enmod headers && a2enmod deflate && apachectl restart</code></pre>
+    <p>
+        Make a directory for your instance:
+    </p>
+    <pre><code class="plaintext">mkdir /var/www/dynamicsuite && cd /var/www/dynamicsuite</code></pre>
+    <p>
+        Download the latest release (clone the master branch):
+    </p>
+    <pre><code class="plaintext">git clone https://github.com/dynamicsuite/dynamicsuite .</code></pre>
+    <p>
+        Switch to the CLI utility directory:
+    </p>
+    <pre><code class="plaintext">cd cli</code></pre>
+
+    <p>
+        Allow execute permissions for the CLI utilities:
+    </p>
+    <pre><code class="plaintext">chmod +x *</code></pre>
+    <p>
+        Run the installer:
+    </p>
+    <pre><code class="plaintext">./setup</code></pre>
+    <p>
+        Follow the interactive installer.
+    </p>
+    <p>
+        In some cases you will need to remove the default virtual host on Debian, depending on your host name. If your
+        instance is redirecting to the splash page, run:
+    </p>
+    <pre><code class="plaintext">rm /etc/apache2/sites-enabled/000-default.conf && apachectl restart</code></pre>
+    <p>
+        Congratulations, your instance is now installed! Use your web browser to browse to your hostname and you should
+        get the "About Dynamic Suite" splash page.
+    </p>
+    <h2 id="generic-install">Generic Install <docs-link link="generic-install"></docs-link></h2>
+    <p>
+        The following guide will help you deploy a Dynamic Suite instance on a <i>non</i> supported environment.
+    </p>
+    <p><strong>
+        Disclaimer: Manually installing is not supported or recommended and is considered an expert level task.
+    </strong></p>
+    <p>
+        To run a Dynamic Suite instance you need the following prerequisites:
+    </p>
+    <ul>
+        <li>*nix based environment</li>
+        <li>Some kind of Database (MariaDB tested & supported).</li>
+        <li>Some kind of web server with rewrite capability (Apache2 tested & supported)</li>
+        <li>PHP 8.0+ with a PDO capable driver, APCU extension, OPCACHE extension, and MBSTRING extension</li>
+    </ul>
+    <p>
+        All scripts used for setup and management are in the <code>cli/</code> directory. While it is possible to
+        get by without using these scripts, it will be very difficult. Using Debian 10, Apache2, MariaDB is HIGHLY
+        recommended.
+    </p>
+    <h3>Manual install without setup script</h3>
+    <p>
+        The first step is to set up a virtual host on your web server (if supported) or configure your web server to
+        serve the Dynamic Suite instance. There is a sample virtual host for Apache that the setup script uses located
+        at <code>apache/default_vhost.conf</code>. This configuration can be used as reference, but the following is
+        required:
+    </p>
+    <p>
+        Set the web root of your instance to the <code>public/</code> folder. This is the ONLY directory directly
+        served to the client. It should be noted that this directory is unsafe.
+    </p>
+    <p>
+        Configure your web server to point the default entry script to <code>dynamicsuite.php</code>, where
+        traditionally it would be something like <code>index.php</code>. This can be achieved on Apache with rewrite
+        enabled like so:
+    </p>
+    <pre><code class="language-apache">RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ dynamicsuite.php?url=$1 [QSA,PT]
+</code></pre>
+    <p>
+        You will then need to make some aliases for client resources, which are stored outside of the webroot, and even
+        in third-party packages. On Apache, you can configure them like so, where <code>*path*</code> is the directory
+        path of your instance:
+    </p>
+    <pre><code class="language-apache">Alias /dynamicsuite/public/css "*path*/public/css"
+Alias /dynamicsuite/public/js "*path*/public/js"
+Alias /dynamicsuite/public/webfonts "*path*/public/webfonts"
+Alias /dynamicsuite/public/img "*path*/app/public/img"
+AliasMatch "^/dynamicsuite/packages/([^\/]+)/([^\/]+.*)" "*path*/packages/$1/public/$2"
+</code></pre>
+    <p>
+        Make sure that your web server is configured to allow serving from these directories.
+    </p>
+    <p>
+        Finally, you need to set up the database and tables for Dynamic Suite. The database you choose must support the
+        PDO driver in PHP. (MariaDB/MySQL, etc).
+    </p>
+    <p>
+        Once all of this is done, you will need to update your global Dynamic Suite config. This config is found at
+        <code>config/dynamicsuite.json</code>. If the directory or file does not exist, create it.
+    </p>
+    <p>
+        At a bare minimum the config should look something like this:
+    </p>
+    <pre><code class="language-json">
+{
+    "db_dsn": "mysql:host=localhost;dbname=dynamicsuite",
+    "db_user": "username",
+    "db_pass": "password"
+}
+</code></pre>
+    <p>
+        Browse to your hostname and you should get the "About Dynamic Suite" splash page. If you see this,
+        congratulations, you have successfully installed Dynamic Suite manually!
+    </p>
+</div>

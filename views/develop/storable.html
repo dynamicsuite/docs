@@ -1,0 +1,155 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>Storable Interface</h2>
+    <p>
+        Dynamic Suite contains a basic storable interface. When developing your application, there is a good chance that
+        you will want to store something or retrieve something from the database. The included abstraction creates a way
+        to standardise this.
+    </p>
+    <p>
+        When storing something in the database that represents this "Storable" interface, the storable must have a
+        integer primary key that can be used to retrieve the storable.
+    </p>
+    <p>
+        Lets say we want to store an item in the database, lets create our table that we will store it in:
+    </p>
+    <pre><code class="language-sql">CREATE TABLE IF NOT EXISTS `mypkg_items` (
+    `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `sku` varchar(32) DEFAULT NULL,
+    `price` decimal(10,2) DEFAULT 0.00,
+    `description` varchar(64) DEFAULT NULL,
+    PRIMARY KEY (`item_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+</code></pre>
+    <p>
+        Here you can see that we have created our items table and made the primary key "item_id" an integer.
+    </p>
+    <p>
+        Next we will create our <code>Item</code> class:
+    </p>
+    <pre><code>class Item extends Storable implements IStorable
+{
+
+    public const COLUMN_LIMITS = [
+        'sku' => 32,
+        'description' => 64
+    ];
+
+    public ?int $item_id = null;
+
+    public ?string $sku = null;
+
+    public float $price = 0.0;
+
+    public ?string $description = null;
+
+    public function __construct(array $item = [])
+    {
+        parent::__construct($item);
+    }
+
+    public function create(): Item
+    {
+        $this->validate(self::COLUMN_LIMITS);
+        $this->item_id = (new Query())
+            ->insert([
+                'sku' => $this->sku,
+                'price' => $this->price,
+                'description' => $this->description
+            ])
+            ->into('mypkg_items')
+            ->execute();
+        return $this;
+    }
+
+    public static function readById(int $id)
+    {
+        $item = (new Query())
+            ->select()
+            ->from('mypkg_items')
+            ->where('item_id', '=', $id)
+            ->execute(true);
+        return $item ? new Item($item) : false;
+    }
+
+    public function update(): Item
+    {
+        $this->validate(self::COLUMN_LIMITS);
+        (new Query())
+            ->update('mypkg_items')
+            ->set([
+                'sku' => $this->sku,
+                'price' => $this->price,
+                'description' => $this->description
+            ])
+            ->where('item_id', '=', $this->item_id)
+            ->execute();
+        return $this;
+    }
+
+    public function delete(): Item
+    {
+        (new Query())
+            ->delete()
+            ->from('mypkg_items')
+            ->where('item_id', '=', $this->item_id)
+            ->execute();
+        return $this;
+    }
+
+}</code></pre>
+    <p>
+        Note that our item class extends the <code>Storable</code> class and implements the interface
+        <code>IStorable</code>.
+    </p>
+    <p>
+        The interface <code>IStorable</code> contains the following methods that must be implemented in your class:
+    </p>
+    <ul>
+        <li>create</li>
+        <li>readById</li>
+        <li>update</li>
+        <li>delete</li>
+    </ul>
+    <p>
+        The base class <code>Storable</code> contains the ability to validate the length of the data in your class
+        before it is sent to the database as well as constructor capability to build the object from an array.
+    </p>
+    <p>
+        Now that we have our item class, we can create instances of the item which can then sync back and fourth from
+        the database.
+    </p>
+    <p>
+        Examples:
+    </p>
+    <pre><code>// Creates the record in the database and updated the $item->item_id
+$item = new Item();
+$item->sku = '17000';
+$item->price = '4.99';
+$item->description = 'Spray Paint';
+$item->create();
+
+// Updates the existing item in the database to change its price
+$item->price = '3.99';
+$item->update();
+
+// Lookup another item
+$item2 = Item::readById(10);
+
+// Delete both items
+$item->delete();
+$item2->delete();
+
+// After the items are deleted, they still exist in PHP. You can unset them if they are not needed or re-create them.
+</code></pre>
+</div>

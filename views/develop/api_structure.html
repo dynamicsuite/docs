@@ -1,0 +1,40 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>API Structure</h2>
+    <p>
+        A package may contain "apis" which are REST endpoints.
+    </p>
+    <p><i>
+        Note, if a parameter is not provided, the default will be used.
+    </i></p>
+    <h2>Parameters</h2>
+    <docs-config-param param="entry" type="string|null" default_value="null">
+        The entry point of the API. This is the path to a PHP script which will be executed when the API is requested.
+    </docs-config-param>
+    <docs-config-param param="post" type="array" default_value="[]">
+        An array of strings of required POST keys for the API.
+    </docs-config-param>
+    <docs-config-param param="permissions" type="array" default_value="[]">
+        An array of strings of required permissions on the session for the API.
+    </docs-config-param>
+    <docs-config-param param="public" type="bool" default_value="false">
+        If the API is public and does not require authentication.
+    </docs-config-param>
+    <docs-config-param param="autoload" type="array" default_value="[]">
+        An array of string paths to include in the autoloader for the API.
+    </docs-config-param>
+    <docs-config-param param="init" type="array" default_value="[]">
+        An array of string paths of PHP scripts to execute for the API.
+        These scripts are executed before the entry.
+    </docs-config-param>
+</div>

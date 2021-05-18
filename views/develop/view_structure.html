@@ -1,0 +1,66 @@
+<!--
+This file is part of the Dynamic Suite Docs package.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@package DynamicSuite\Docs
+@author Grant Martin <commgdog@gmail.com>
+@copyright 2021 Dynamic Suite Team
+-->
+
+<div class="docs-container ds-container primary">
+    <h2>View Structure</h2>
+    <p>
+        A package may contain "views" which are content that the user sees on their screen.
+    </p>
+    <p>
+        Views are JSON objects with the following structure:
+    </p>
+    <p><i>
+        Note, if a parameter is not provided, the default will be used.
+    </i></p>
+    <h2>Parameters</h2>
+    <docs-config-param param="entry" type="string|null" default_value="null">
+        The entry point of the view. This is the path to a PHP script which will be executed when the view is requested.
+        Alternately, you can direct load a single Vue component (for SFCs) with the following syntax:
+        <pre><code>vue://*component-name*</code></pre>
+    </docs-config-param>
+    <docs-config-param param="title" type="string|null" default_value="null">
+        The HTML title of the view. If not provided or NULL, the view ID will be used.
+    </docs-config-param>
+    <docs-config-param param="public" type="bool" default_value="false">
+        If the view is public and does not require authentication.
+    </docs-config-param>
+    <docs-config-param param="navigable" type="bool" default_value="true">
+        If the view is navigable from the overlay nav bar.
+    </docs-config-param>
+    <docs-config-param param="hide_overlay" type="bool" default_value="false">
+        If the overlay should be hidden for the view.
+    </docs-config-param>
+    <docs-config-param param="nav_name" type="string|null" default_value="null">
+        The name of the view as appears on the overlay nav bar. If not given or NULL, the view ID will be used.
+    </docs-config-param>
+    <docs-config-param param="nav_icon" type="string" default_value="fas fa-cog">
+        The FontAwesome icon class to use on the overlay nav bar for the view.
+    </docs-config-param>
+    <docs-config-param param="nav_group" type="string|null" default_value="null">
+        The nav group that the view is assigned to.
+    </docs-config-param>
+    <docs-config-param param="permissions" type="array" default_value="[]">
+        An array of strings of required permissions on the session for the view.
+    </docs-config-param>
+    <docs-config-param param="autoload" type="array" default_value="[]">
+        An array of string paths to include in the autoloader for the view.
+    </docs-config-param>
+    <docs-config-param param="init" type="array" default_value="[]">
+        An array of string paths of PHP scripts to execute for the view.
+        These scripts are executed before the entry.
+    </docs-config-param>
+    <docs-config-param param="js" type="array" default_value="[]">
+        An array of string paths to JS files to include for the view.
+    </docs-config-param>
+    <docs-config-param param="css" type="array" default_value="[]">
+        An array of string paths to CSS files to include for the view.
+    </docs-config-param>
+</div>
