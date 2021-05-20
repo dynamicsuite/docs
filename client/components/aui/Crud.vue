@@ -486,6 +486,12 @@ export default {
             type: 'String',
             default: 'fas fa-times',
             usage: 'FontAwesome icon class to show on the "failure" feedback tick.'
+          },
+          {
+            prop: 'form_created_to_list',
+            type: 'Boolean',
+            default: true,
+            usage: 'If you should be returned to the list view on creation.'
           }
         ]
       }
