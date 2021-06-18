@@ -398,6 +398,21 @@ export default {
             usage: 'Additional data to send along with the form delete API.'
           },
           {
+            prop: 'form_exclude_columns',
+            type: 'String[]',
+            default: '[]',
+            usage: 'Columns to exclude from API calls.'
+          },
+          {
+            prop: 'form_format_columns',
+            type: 'Object',
+            default: '{}',
+            usage:
+              'Format specific columns when sent to API calls. This is an object where the key is the column and ' +
+              'the value is a function that returns a formatted value. This function takes 1 argument, the actual ' +
+              'form value.'
+          },
+          {
             prop: 'form_show_actions',
             type: 'Boolean',
             default: 'true',
@@ -490,7 +505,7 @@ export default {
           {
             prop: 'form_created_to_list',
             type: 'Boolean',
-            default: true,
+            default: 'true',
             usage: 'If you should be returned to the list view on creation.'
           }
         ]
