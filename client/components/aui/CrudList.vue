@@ -25,7 +25,7 @@ file that was distributed with this source code.
         a list group or table.
       </p>
       <p>
-        Primary features include sorting and searching of incremental data.
+        Primary features include sorting and filtering of incremental data.
       </p>
       <p>
         The server-side class <code>CrudRead</code> should be consulted for implementation.
@@ -75,16 +75,16 @@ export default {
             usage: 'The FontAwesome icon class to show on the create button (if visible).'
           },
           {
-            prop: 'show_search',
+            prop: 'show_filter',
             type: 'Boolean',
             default: 'true',
-            usage: 'If the search should be shown.'
+            usage: 'If the filter should be shown.'
           },
           {
-            prop: 'search_placeholder',
+            prop: 'filter_placeholder',
             type: 'String',
-            default: 'Search',
-            usage: 'Placeholder for the search input (if visible).'
+            default: 'Filter',
+            usage: 'Placeholder for the filter input (if visible).'
           },
           {
             prop: 'no_data_icon',
@@ -204,10 +204,10 @@ export default {
             usage: 'Number of records to limit the list to. Defaults to the first value.'
           },
           {
-            prop: 'search_delay',
+            prop: 'filter_delay',
             type: 'Number',
             default: '300',
-            usage: 'The delay from inactivity in the search box until the list refreshes (in milliseconds).'
+            usage: 'The delay from inactivity in the filter box until the list refreshes (in milliseconds).'
           },
           {
             prop: 'refresh_interval',
@@ -230,10 +230,10 @@ export default {
             usage: 'URL GET key for list page.'
           },
           {
-            prop: 'get_key_search',
+            prop: 'get_key_filter',
             type: 'String',
-            default: 'search',
-            usage: 'URL GET key for list search.'
+            default: 'filter',
+            usage: 'URL GET key for list filter.'
           },
           {
             prop: 'get_key_sort',

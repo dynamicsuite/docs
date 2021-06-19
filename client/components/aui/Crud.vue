@@ -96,7 +96,7 @@ export default {
           'update:form(form)': 'Update for "form" (sync required)',
         },
         slots: {
-          'list-actions': 'Additional content to go on the list view next to the search',
+          'list-actions': 'Additional content to go on the list view next to the filter',
           'form': 'The content of the form'
         },
         props: [
@@ -157,16 +157,16 @@ export default {
             usage: 'The FontAwesome icon class to show on the create button (if visible).'
           },
           {
-            prop: 'list_show_search',
+            prop: 'list_show_filter',
             type: 'Boolean',
             default: 'true',
-            usage: 'If the search should be shown.'
+            usage: 'If the filter should be shown.'
           },
           {
-            prop: 'list_search_placeholder',
+            prop: 'list_filter_placeholder',
             type: 'String',
-            default: 'Search',
-            usage: 'Placeholder for the search input (if visible).'
+            default: 'Filter',
+            usage: 'Placeholder for the filter input (if visible).'
           },
           {
             prop: 'list_no_data_icon',
@@ -268,10 +268,10 @@ export default {
             usage: 'Number of records to limit the list to. Defaults to the first value.'
           },
           {
-            prop: 'list_search_delay',
+            prop: 'list_filter_delay',
             type: 'Number',
             default: '300',
-            usage: 'The delay from inactivity in the search box until the list refreshes (in milliseconds).'
+            usage: 'The delay from inactivity in the filter box until the list refreshes (in milliseconds).'
           },
           {
             prop: 'list_refresh_interval',
@@ -294,10 +294,10 @@ export default {
             usage: 'URL GET key for list page.'
           },
           {
-            prop: 'list_get_key_search',
+            prop: 'list_get_key_filter',
             type: 'String',
-            default: 'search',
-            usage: 'URL GET key for list search.'
+            default: 'filter',
+            usage: 'URL GET key for list filter.'
           },
           {
             prop: 'list_get_key_sort',
