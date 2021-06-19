@@ -53,7 +53,8 @@ export default {
           'list-interaction(storable_key)': 'When there is an interaction with a storable in the list'
         },
         slots: {
-          'actions': 'Additional action components to go in the header preceding all default actions.'
+          'actions': 'Additional action components to go in the header preceding all default actions.',
+          'pre-data': 'Additional content to go before the data',
         },
         props: [
           {

@@ -97,6 +97,7 @@ export default {
         },
         slots: {
           'list-actions': 'Additional content to go on the list view next to the filter',
+          'list-pre-data': 'Additional content to go on the list view before the data',
           'form': 'The content of the form'
         },
         props: [
