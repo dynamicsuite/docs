@@ -200,7 +200,7 @@ export default {
           {
             prop: 'range_limit',
             type: 'Array',
-            default: '[15, 25, 50, 100]',
+            default: '[20, 50, 100]',
             usage: 'Number of records to limit the list to. Defaults to the first value.'
           },
           {
