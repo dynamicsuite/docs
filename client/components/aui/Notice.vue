@@ -46,7 +46,8 @@ export default {
             '  <aui-notice icon="fas fa-circle-notch fa-spin" text="Loading" />\n' +
             '</div>',
         slots: {
-          'default': 'Any content in this slot will go in the notice message body'
+          'default': 'Any content in this slot will go in the notice message body',
+          'subtext': 'Any content in this slot will go in the subtext of the notice'
         },
         props: [
           {
