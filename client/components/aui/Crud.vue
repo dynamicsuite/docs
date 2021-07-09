@@ -243,6 +243,12 @@ export default {
               'and returns the displayed value.'
           },
           {
+            prop: 'list_table_row_classes',
+            type: 'Function',
+            default: '() => ({})',
+            usage: 'Classes to apply to each row given an argument of the row data. Standard Vue classes object.'
+          },
+          {
             prop: 'list_table_storage_key',
             type: 'String | null',
             default: 'null',

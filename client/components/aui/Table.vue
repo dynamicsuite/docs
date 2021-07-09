@@ -115,6 +115,12 @@ export default {
               'displayed value.'
           },
           {
+            prop: 'row_classes',
+            type: 'Function',
+            default: '() => ({})',
+            usage: 'Classes to apply to each row given an argument of the row data. Standard Vue classes object.'
+          },
+          {
             prop: 'sortable',
             type: 'Boolean',
             default: 'false',
