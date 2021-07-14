@@ -94,7 +94,8 @@ export default {
           'update:calling(calling)': 'Update for "calling" (sync required)',
           'update:feedback(feedback)': 'Update for "feedback" (sync required)',
           'update:form(form)': 'Update for "form" (sync required)',
-          'form-pre-read': 'Right before the form storable is read'
+          'form-pre-read': 'Right before the form storable is read',
+          'form-pre-create': 'Right before the create form is shown'
         },
         slots: {
           'list-actions': 'Additional content to go on the list view next to the filter',
