@@ -102,6 +102,8 @@ export default {
           'list-pre-data': 'Additional content to go on the list view before the data',
           'form': 'The content of the form',
           'form-back-button': 'Override for the back button on the form',
+          'form-create-button': 'Override for the create button on the form',
+          'form-update-button': 'Override for the update button on the form',
           'form-action-context': 'Extra content to go next to the form action button (left of it)'
         },
         props: [
