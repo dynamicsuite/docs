@@ -146,6 +146,12 @@ export default {
             usage: 'Calling state of any APIs. Must be synced to parent.'
           },
           {
+            prop: 'list_custom_interaction',
+            type: 'Boolean',
+            default: 'false',
+            usage: 'If list interaction events should be emitted instead of setting up the form.'
+          },
+          {
             prop: 'list_title',
             type: 'String',
             default: 'CRUD List',
