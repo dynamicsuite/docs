@@ -127,6 +127,13 @@ export default {
             usage: 'Component autocomplete value.'
           },
           {
+            prop: 'autocapitalize',
+            type: 'String | null',
+            required: false,
+            default: 'null',
+            usage: 'Component autocapitalize value.'
+          },
+          {
             prop: 'placeholder',
             type: 'String | null',
             required: false,

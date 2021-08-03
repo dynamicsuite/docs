@@ -94,10 +94,17 @@ export default {
           'update:calling(calling)': 'Update for "calling" (sync required)',
           'update:feedback(feedback)': 'Update for "feedback" (sync required)',
           'update:form(form)': 'Update for "form" (sync required)',
+          'form-pre-read': 'Right before the form storable is read',
+          'form-pre-create': 'Right before the create form is shown'
         },
         slots: {
-          'list-actions': 'Additional content to go on the list view next to the search',
-          'form': 'The content of the form'
+          'list-actions': 'Additional content to go on the list view next to the filter',
+          'list-pre-data': 'Additional content to go on the list view before the data',
+          'form': 'The content of the form',
+          'form-back-button': 'Override for the back button on the form',
+          'form-create-button': 'Override for the create button on the form',
+          'form-update-button': 'Override for the update button on the form',
+          'form-action-context': 'Extra content to go next to the form action button (left of it)'
         },
         props: [
           {
@@ -139,6 +146,12 @@ export default {
             usage: 'Calling state of any APIs. Must be synced to parent.'
           },
           {
+            prop: 'list_custom_interaction',
+            type: 'Boolean',
+            default: 'false',
+            usage: 'If list interaction events should be emitted instead of setting up the form.'
+          },
+          {
             prop: 'list_title',
             type: 'String',
             default: 'CRUD List',
@@ -157,16 +170,16 @@ export default {
             usage: 'The FontAwesome icon class to show on the create button (if visible).'
           },
           {
-            prop: 'list_show_search',
+            prop: 'list_show_filter',
             type: 'Boolean',
             default: 'true',
-            usage: 'If the search should be shown.'
+            usage: 'If the filter should be shown.'
           },
           {
-            prop: 'list_search_placeholder',
+            prop: 'list_filter_placeholder',
             type: 'String',
-            default: 'Search',
-            usage: 'Placeholder for the search input (if visible).'
+            default: 'Filter',
+            usage: 'Placeholder for the filter input (if visible).'
           },
           {
             prop: 'list_no_data_icon',
@@ -240,6 +253,12 @@ export default {
               'and returns the displayed value.'
           },
           {
+            prop: 'list_table_row_classes',
+            type: 'Function',
+            default: '() => ({})',
+            usage: 'Classes to apply to each row given an argument of the row data. Standard Vue classes object.'
+          },
+          {
             prop: 'list_table_storage_key',
             type: 'String | null',
             default: 'null',
@@ -264,14 +283,14 @@ export default {
           {
             prop: 'list_range_limit',
             type: 'Array',
-            default: '[15, 25, 50, 100]',
+            default: '[20, 50, 100]',
             usage: 'Number of records to limit the list to. Defaults to the first value.'
           },
           {
-            prop: 'list_search_delay',
+            prop: 'list_filter_delay',
             type: 'Number',
             default: '300',
-            usage: 'The delay from inactivity in the search box until the list refreshes (in milliseconds).'
+            usage: 'The delay from inactivity in the filter box until the list refreshes (in milliseconds).'
           },
           {
             prop: 'list_refresh_interval',
@@ -294,10 +313,10 @@ export default {
             usage: 'URL GET key for list page.'
           },
           {
-            prop: 'list_get_key_search',
+            prop: 'list_get_key_filter',
             type: 'String',
-            default: 'search',
-            usage: 'URL GET key for list search.'
+            default: 'filter',
+            usage: 'URL GET key for list filter.'
           },
           {
             prop: 'list_get_key_sort',
@@ -398,6 +417,21 @@ export default {
             usage: 'Additional data to send along with the form delete API.'
           },
           {
+            prop: 'form_exclude_columns',
+            type: 'String[]',
+            default: '[]',
+            usage: 'Columns to exclude from API calls.'
+          },
+          {
+            prop: 'form_format_columns',
+            type: 'Object',
+            default: '{}',
+            usage:
+              'Format specific columns when sent to API calls. This is an object where the key is the column and ' +
+              'the value is a function that returns a formatted value. This function takes 1 argument, the actual ' +
+              'form value.'
+          },
+          {
             prop: 'form_show_actions',
             type: 'Boolean',
             default: 'true',
@@ -486,6 +520,12 @@ export default {
             type: 'String',
             default: 'fas fa-times',
             usage: 'FontAwesome icon class to show on the "failure" feedback tick.'
+          },
+          {
+            prop: 'form_created_to_list',
+            type: 'Boolean',
+            default: 'true',
+            usage: 'If you should be returned to the list view on creation.'
           }
         ]
       }
